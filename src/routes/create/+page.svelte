@@ -10,7 +10,7 @@
 <form method="post" action="?/post">
 	<label>
 		Title
-		<input type="text" name="title" placeholder="Title" min-length="3" required>
+		<input type="text" name="title" placeholder="Title" minlength="3" required>
 	</label>
 	<br><br>
 	<label>
@@ -18,6 +18,7 @@
 		<textarea name="content" placeholder="Content" maxlength="10000" rows="6" cols="65" required></textarea>
 	</label>
 	<br><br>
+	<!-- svelte-ignore a11y-label-has-associated-control -->
 	<label>
 		Tags
 		<Selector>

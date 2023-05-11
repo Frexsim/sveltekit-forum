@@ -1,5 +1,5 @@
 <div class="bar">
-	<img id="logo" src="src/lib/svgs/logo.svg" alt="COOL FORUM">
+	<img id="logo" src="src/lib/images/logo.svg" alt="COOL FORUM">
 	
 	<div class="nav-items left">
 		<a href="/">Posts</a>

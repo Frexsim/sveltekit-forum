@@ -18,6 +18,7 @@
 	});
 	
 	import xss from "xss";
+	// @ts-ignore
 	const xssFilter = new xss.FilterXSS({
 		whiteList: {},
 		stripIgnoreTag: false,
