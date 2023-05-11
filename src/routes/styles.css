@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;700&display=swap');
+
+* {
+	outline: none;
+}
+
+body {
+	--cool-color: #1f80ff;
+	--cool-color-hover: #64a6ff;
+	--cool-color-secondary: #ffffff;
+	--cool-color-secondary-hover: #cfcfcf;
+	--gray-color: #c9c9c9;
+	--gray-color-hover: #b8b8b8;
+	--gray-color-text: #6e6e6e;
+	
+	font-family: 'Inter', sans-serif;
+	font-weight: 500;
+}
+
+button, input[type="submit"] {
+	height: 32px;
+
+	padding: 8px;
+	padding-left: 12px;
+	padding-right: 12px;
+	
+	background-color: var(--cool-color);
+	color: white;
+
+	border: 0px;
+	border-radius: 16px;
+
+	font-family: 'Inter', sans-serif;
+	font-weight: 700;
+
+	cursor: pointer;
+
+	transition-duration: 0.15s;
+	transition-timing-function: ease;
+}
+
+button:hover, input[type="submit"]:hover {
+	background-color: var(--cool-color-hover);
+}
+
+button.secondary, input[type="submit"].secondary {
+	background-color: var(--cool-color-secondary);
+	color: black;
+}
+
+button.secondary:hover, input[type="submit"].secondary:hover {
+	background-color: var(--cool-color-secondary-hover);
+}
+
+button.gray, input[type="submit"].gray {
+	background-color: var(--cool-color-secondary);
+	color: var(--gray-color-text);
+}
+
+button.gray:hover, input[type="submit"].gray:hover {
+	background-color: var(--cool-color-secondary-hover);
+}
+
+textarea, input[type="text"] {
+	padding: 8px;
+
+	background-color: #f0f0f0;
+
+	border: 1px gray solid;
+	border-radius: 8px;
+}
+
+a {
+	color: var(--cool-color);
+
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+
+	cursor: pointer;
+}
+
+code {
+	background-color: lightgray;
+	padding: 8px;
+	margin-bottom: 8px;
+}
+
+video {
+	width: 75%;
+	max-height: 512px;
+	aspect-ratio: 16 / 9;
+}
