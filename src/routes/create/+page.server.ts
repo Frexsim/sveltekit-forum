@@ -26,7 +26,7 @@ export const actions = {
 		const title = await formData.get("title");
 		const content = await formData.get("content");
 
-		const postId = Post.countDocuments();
+		const postId = await Post.count() + 1;
 		const newPost = new Post({
 			_id: new mongoose.Types.ObjectId(),
 			postId: postId,
