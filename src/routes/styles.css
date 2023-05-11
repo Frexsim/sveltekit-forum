@@ -93,3 +93,16 @@ video {
 	max-height: 512px;
 	aspect-ratio: 16 / 9;
 }
+
+hr {
+	height: 1px;
+    width: 100% - 10px;
+            
+    margin: 10px;
+            
+    background-color: rgb(55, 55, 55);
+}
+
+h5 {
+	color: var(--gray-color-text)
+}

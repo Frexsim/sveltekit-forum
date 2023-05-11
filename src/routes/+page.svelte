@@ -1,4 +1,6 @@
 <script>
+// @ts-nocheck
+
 	import MarkdownIt from "markdown-it";
 	import MarkdownItVideo from "markdown-it-video";
 	import MarkdownItHtml5Embed from "markdown-it-html5-embed";
@@ -18,12 +20,13 @@
 	});
 	
 	import xss from "xss";
-	// @ts-ignore
 	const xssFilter = new xss.FilterXSS({
 		whiteList: {},
 		stripIgnoreTag: false,
 		stripIgnoreTagBody: ['script']
 	});
+
+    import date from "date-and-time";
 	
 	export let data;
 	const { posts } = data;
@@ -32,8 +35,11 @@
 <h1>Forum Posts</h1>
 {#if posts.length > 0}
 	{#each posts as post}
-		{console.log(post)}
-		{post.title}
+        <div class="post-container">
+            <h2><a class="title" href="/{post.postId}" >{post.title}</a></h2>
+            <p class="description">{post.content}</p>
+            <h5 class="creationDate">{date.format(post.creationDate, "dddd, MMMM DD YYYY at HH:mm:ss")}</h5>
+        </div>
 	{/each}
 
 	<h5>No more posts, write something to see it here!</h5>
@@ -43,14 +49,13 @@
 {/if}
 
 <style>
-	.lineBreak {
-		height: 1px;
-        width: 100% - 10px;
-            
-        margin: 10px;
-            
-        background-color: rgb(55, 55, 55);
-	}
+    .post-container {
+        border-top: gray 1px solid;
+        border-bottom: gray 1px solid;
+
+        padding-left: 10px;
+        margin-bottom: -1px;
+    }
 
 	.title {
 		overflow: hidden;
@@ -68,18 +73,5 @@
 		-webkit-line-clamp: 1;
 		line-clamp: 1; 
 		-webkit-box-orient: vertical;
-	}
-
-	.tag {
-		color: gray;
-		margin-right: 10px;
-	}
-
-	.tags {
-		margin-top: 16px;
-	}
-
-	h5 {
-		color: lightgray;
 	}
 </style>
