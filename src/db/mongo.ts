@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
-//import { mongo_url } from "$conifg";
+import { mongo_url } from "../../config.json";
 
 export default function start_mongo() {
 	console.log("Connecting to mongodb...");
-	mongoose.connect("mongodb+srv://linlju0601:coolpassword@cluster.458ky17.mongodb.net/?retryWrites=true&w=majority", {
+	mongoose.connect(mongo_url, {
 		dbName: "sveltekit-forum"
 	});
 }
