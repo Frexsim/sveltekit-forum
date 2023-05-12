@@ -6,6 +6,7 @@ const User = new Schema({
 	_id: ObjectId,
 	email: String,
 	name: String,
+	picture: String,
 	password: String
 }, { collection: "sveltekit-forum" });
 
