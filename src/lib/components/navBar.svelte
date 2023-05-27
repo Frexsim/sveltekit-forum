@@ -1,3 +1,7 @@
+<script lang="ts">
+	import { page } from "$app/stores";
+</script>
+
 <div class="bar">
 	<img id="logo" src="src/lib/images/logo.svg" alt="COOL FORUM">
 	
@@ -7,7 +11,13 @@
 	</div>
 
 	<div class="nav-items right">
-		<a href="/login"><button class="secondary">Login</button></a>
+		{#if !$page.data.user}
+			<a href="/login"><button class="secondary">Login</button></a>
+		{:else}
+			<div class="user-badge">
+				<img src="{$page.data.user.picture}" alt="user"><span>{$page.data.user.name}</span>
+			</div>
+		{/if}
 	</div>
 </div>
 
@@ -64,5 +74,15 @@
 		background-color: var(--cool-color);
 
 		z-index: 10;
+	}
+
+	.user-badge > span {
+		vertical-align: 50%;
+		padding-left: 5px;
+	}
+
+	.user-badge > img {
+		width: 36px;
+		border-radius: 50%;
 	}
 </style>

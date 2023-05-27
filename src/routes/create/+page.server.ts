@@ -37,7 +37,6 @@ export const actions = {
 
 		await newPost.save().catch(console.error);
 
-		//throw redirect(302, `/${postId}`);
-		return { success: true };
+		throw redirect(302, `/post/${postId}`);
 	}
 }

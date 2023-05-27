@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { mongo_url } from "../../config.json";
+import { mongo_url } from "../config.json";
 
 export default function start_mongo() {
 	console.log("Connecting to mongodb...");

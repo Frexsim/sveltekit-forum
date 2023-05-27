@@ -1,4 +1,4 @@
-import { google_oauth_redirect_url, google_client_id } from "$conifg";
+import { google_client_id, google_oauth_redirect_url } from "../../config.json";
 
 export default function getGoogleOAuthURL() {
 	const rootUrl = "https://accounts.google.com/o/oauth2/v2/auth";

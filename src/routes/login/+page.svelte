@@ -1,5 +1,5 @@
 <script>
-	import getGoogleOAuthURL from "$lib/scripts/getGoogleUrl.ts"
+	import getGoogleOAuthURL from "$lib/scripts/getGoogleUrl.ts";
 </script>
 
 <h1>Login</h1>

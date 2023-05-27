@@ -1,5 +1,5 @@
 import axios from "axios"
-import { google_client_id, google_client_secret, google_oauth_redirect_url } from "$conifg";
+import { google_client_id, google_client_secret, google_oauth_redirect_url } from "../../config.json";
 
 export default async function getGoogleOAuthTokens ({ code }) {
 	const url = "https://oauth2.googleapis.com/token";
