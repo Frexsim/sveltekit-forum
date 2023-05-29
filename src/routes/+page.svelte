@@ -37,7 +37,6 @@
 	{#each posts as post}
         <div class="post-container">
             <h2 class="title-header"><a class="title" href="/{post.postId}" >{post.title}</a></h2>
-            <p class="description">{post.content}</p>
             <h5 class="creationDate">{date.format(post.creationDate, "dddd, MMMM DD YYYY at HH:mm:ss")}</h5>
         </div>
 	{/each}

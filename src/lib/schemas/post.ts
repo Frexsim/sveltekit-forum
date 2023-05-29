@@ -2,7 +2,7 @@ import { Schema, Document, model } from "mongoose";
 import type { UserDocument } from "./user";
 
 export interface PostDocument extends Document {
-    postId: number,
+    postId: string,
     author: UserDocument["_id"],
     title: string,
 	content: string,
@@ -12,7 +12,7 @@ export interface PostDocument extends Document {
 }
 
 const Post = new Schema({
-	postId: { type: Number, required: true },
+	postId: { type: String, required: true },
 	author: { type: Schema.Types.ObjectId, ref: "User", required: true },
 	title: { type: String, required: true },
 	content: { type: String, required: true },

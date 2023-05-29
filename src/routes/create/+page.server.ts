@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import Post from "$lib/schemas/post.ts"
 import { redirect } from "@sveltejs/kit";
 import User from "$lib/schemas/user.js";
+import { uid } from "uid";
 
 export const load = async ({ locals }) => {
 	//const tagsCollection = await db.collection("tags");
@@ -20,6 +21,17 @@ export const load = async ({ locals }) => {
 	}
 }
 
+function generateUid() {
+	const postId = uid(12)
+	const foundMatchingPost = Post.findOne({ postId });
+	if (!foundMatchingPost) {
+		return postId;
+	} else {
+		return generateUid();
+	}
+	
+}
+
 /** @type {import('./$types').Actions} */
 export const actions = {
 	post: async ({ request, locals }) => {
@@ -30,7 +42,7 @@ export const actions = {
 		const userSession = await locals.getSession();
 		const foundUser = await User.findOne({ name: userSession?.user?.name, email: userSession?.user?.email });
 
-		const postId = await Post.count() + 1;
+		let postId = generateUid();
 		const newPost = new Post({
 			_id: new mongoose.Types.ObjectId(),
 			postId: postId,

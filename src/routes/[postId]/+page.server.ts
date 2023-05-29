@@ -3,7 +3,7 @@ import User from "$lib/schemas/user.js";
 
 export const load = async ({ params }) => {
 	const post = await Post.findOne({
-		postId: parseInt(params.postId)
+		postId: params.postId
 	}, {
 		_id: 0,
 	});

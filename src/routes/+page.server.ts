@@ -3,7 +3,7 @@ import Post from "$lib/schemas/post.ts"
 export const load = async () => {
 	const posts = await Post.find({}, {
 		_id: 0,
-	});
+	}).sort({ creationDate: "desc" });
 
 	const parsedPosts = posts.map((post) => {
 		let parsedPost = post.toObject();
@@ -13,6 +13,6 @@ export const load = async () => {
 	})
 
 	return {
-		posts: parsedPosts.reverse(),
+		posts: parsedPosts,
 	}
 }
