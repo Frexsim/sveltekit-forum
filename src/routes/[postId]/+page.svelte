@@ -118,17 +118,4 @@
 	.right > span {
 		font-size: 16px;
 	}
-
-	img video {
-		max-height: 720px;
-		max-width: 100%;
-	}
-
-	iframe {
-		width: auto !important;
-		aspect-ratio: 1920 / 1080;
-
-		max-height: 720px;
-		max-width: 100%;
-	}
 </style>

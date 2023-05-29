@@ -97,12 +97,27 @@ video {
 hr {
 	height: 1px;
     width: 100% - 10px;
+
+	border: 0px;
             
     margin: 10px;
             
-    background-color: rgb(55, 55, 55);
+    background-color: gray;
 }
 
 h5 {
 	color: var(--gray-color-text)
+}
+
+img video {
+	max-height: 720px;
+	max-width: 100%;
+}
+
+iframe {
+	width: auto !important;
+	aspect-ratio: 1920 / 1080;
+
+	max-height: 720px;
+	max-width: 100%;
 }

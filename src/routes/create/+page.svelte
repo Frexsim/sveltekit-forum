@@ -91,9 +91,4 @@
 	.preview-text > :global(p) {
 		white-space: break-spaces;
 	}
-
-	img video {
-		max-height: 720px;
-		max-width: 100%;
-	}
 </style>
