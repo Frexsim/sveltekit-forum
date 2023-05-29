@@ -9,6 +9,7 @@
 	<div class="nav-items left">
 		<a href="/">Posts</a>
 		<a href="/create">Create</a>
+		<a href="/about">About</a>
 	</div>
 
 	<div class="nav-items right">
