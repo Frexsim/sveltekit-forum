@@ -5,7 +5,7 @@ start_mongo();
 import { SvelteKitAuth } from "@auth/sveltekit";
 import Google from "@auth/core/providers/google";
 import type { Adapter, AdapterAccount, AdapterSession, AdapterUser } from "@auth/core/adapters";
-import { google_client_id, google_client_secret, auth_secret } from "./config.json";
+import { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, AUTH_SECRET } from "$env/static/private";
 import type { Handle } from "@sveltejs/kit";
 
 import mongoose from "mongoose";
@@ -138,9 +138,9 @@ function DatabaseAdapter(config: any): Adapter {
 export const handle: Handle = SvelteKitAuth({
     providers: [
         // @ts-ignore
-        Google({ clientId: google_client_id, clientSecret: google_client_secret })
+        Google({ clientId: GOOGLE_CLIENT_ID, clientSecret: GOOGLE_CLIENT_SECRET })
     ],
-    secret: auth_secret,
+    secret: AUTH_SECRET,
     // @ts-ignore
     adapter: DatabaseAdapter({}),
 }) satisfies Handle;
