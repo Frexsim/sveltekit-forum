@@ -21,13 +21,13 @@ export const load = async ({ locals }) => {
 	}
 }
 
-function generateUid() {
-	const postId = uid(12)
-	const foundMatchingPost = Post.findOne({ postId });
+async function generateUid(): Promise<string> {
+	const postId = uid(12);
+	const foundMatchingPost = await Post.findOne({ postId });
 	if (!foundMatchingPost) {
 		return postId;
 	} else {
-		return generateUid();
+		return await generateUid();
 	}
 	
 }
@@ -42,7 +42,7 @@ export const actions = {
 		const userSession = await locals.getSession();
 		const foundUser = await User.findOne({ name: userSession?.user?.name, email: userSession?.user?.email });
 
-		let postId = generateUid();
+		const postId = await generateUid();
 		const newPost = new Post({
 			_id: new mongoose.Types.ObjectId(),
 			postId: postId,
