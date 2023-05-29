@@ -29,15 +29,14 @@
     import date from "date-and-time";
 	
 	export let data;
-	const { posts, user } = data;
-	console.log(user);
+	const { posts } = data;
 </script>
 
 <h1>Forum Posts</h1>
 {#if posts.length > 0}
 	{#each posts as post}
         <div class="post-container">
-            <h2 class="title-header"><a class="title" href="/post/{post.postId}" >{post.title}</a></h2>
+            <h2 class="title-header"><a class="title" href="/{post.postId}" >{post.title}</a></h2>
             <p class="description">{post.content}</p>
             <h5 class="creationDate">{date.format(post.creationDate, "dddd, MMMM DD YYYY at HH:mm:ss")}</h5>
         </div>

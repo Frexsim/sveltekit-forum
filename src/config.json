@@ -2,5 +2,6 @@
 	"mongo_url": "mongodb+srv://linlju0601:coolpassword@cluster.458ky17.mongodb.net/?retryWrites=true&w=majority",
 	"google_client_id": "762593410767-l9gi3lu7mu2psdgfod3v7sg8rvrgtc4l.apps.googleusercontent.com",
 	"google_client_secret": "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",
+	"auth_secret": "aec6e530ef26df665cf86f3f28f8d3442d586b6241a0d0745560a0168f4d8a3c",
 	"google_oauth_redirect_url": "https://ifrex.xyz:8080/api/oauth/google"
 }

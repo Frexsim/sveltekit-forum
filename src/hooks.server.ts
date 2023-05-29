@@ -2,27 +2,145 @@ import start_mongo from "$db/mongo.ts";
 
 start_mongo();
 
-import Session from "$lib/schemas/session";
+import { SvelteKitAuth } from "@auth/sveltekit";
+import Google from "@auth/core/providers/google";
+import type { Adapter, AdapterAccount, AdapterSession, AdapterUser } from "@auth/core/adapters";
+import { google_client_id, google_client_secret, auth_secret } from "./config.json";
+import type { Handle } from "@sveltejs/kit";
+
+import mongoose from "mongoose";
 import User from "$lib/schemas/user";
-import { verifyJwt } from "$lib/scripts/jsonwebtoken";
-import { findUser } from "$lib/scripts/users";
-import pkg from "lodash";
-const { get } = pkg;
+import Session from "$lib/schemas/session";
+import Account from "$lib/schemas/account";
 
-export const handle = async ({ event, resolve }) => {
-    const accessToken = await event.cookies.get("accessToken");
-    if (!accessToken) return await resolve(event);
+function DatabaseAdapter(config: any): Adapter {
+    return {
+        async createUser(user) {
+            const newUser = new User({
+                _id: new mongoose.Types.ObjectId(),
+                email: user.email,
+                emailVerified: user.emailVerified,
+                name: user.name,
+                image: user.image,
+            });
+            await newUser.save();
 
-    const { decoded } = verifyJwt(accessToken);
-    if (!decoded || !get(decoded, "session")) return await resolve(event);
+            return <AdapterUser>(newUser);
+        },
+        async getUser(id) {
+            const foundUser = await User.findById(id);
 
-    const session = await Session.findById(get(decoded, "session"));
-    if (!session) return await resolve(event);
+            return <AdapterUser>(foundUser);
+        },
+        async getUserByEmail(email) {
+            const foundUser = await User.findOne({ email });
 
-    const user = await User.findById(session.user)
-    if (!user) return await resolve(event);
+            return <AdapterUser>(foundUser);
+        },
+        async getUserByAccount({ providerAccountId, provider }) {
+            const foundAccount = await Account.findOne({ providerAccountId })
+            if (!foundAccount) return null;
+            const foundUser = await User.findById(foundAccount.userId);
+            if (!foundUser) return null;
 
-    event.locals.user = findUser({ _id: session.user });
-    
-    return await resolve(event);
+            return <AdapterUser>(foundUser);
+        },
+        async updateUser({ id, name, email, emailVerified, image }) {
+            const updatedUser = await User.findOneAndUpdate({ _id: id }, { name, email, emailVerified, image });
+
+            return <AdapterUser>(updatedUser);
+        },
+        async deleteUser(userId) {
+            User.deleteOne({ _id: userId });
+        },
+        async linkAccount(account) {
+            const newAccount = new Account({
+                _id: new mongoose.Types.ObjectId(),
+                userId: account.userId,
+                type: account.type,
+                provider: account.provider,
+                providerAccountId: account.providerAccountId,
+                refresh_token: account.refresh_token,
+                access_token: account.access_token,
+                expires_at: account.expires_at,
+                token_type: account.token_type,
+                scope: account.scope,
+                id_token: account.id_token,
+                session_state: account.session_state,
+            });
+            await newAccount.save();
+
+            return <AdapterAccount><unknown>(newAccount);
+        },
+        async unlinkAccount({ providerAccountId, provider }) {
+            await Account.deleteOne({ providerAccountId, provider });
+        },
+        async createSession({ sessionToken, userId, expires }) {
+            const newSession = new Session({
+                _id: new mongoose.Types.ObjectId(),
+                expires,
+                sessionToken,
+                userId,
+            });
+            await newSession.save()
+
+            return <AdapterSession>(newSession);
+        },
+        async getSessionAndUser(sessionToken) {
+            const foundSession = await Session.findOne({ sessionToken });
+            if (!foundSession) return null;
+            let foundUser = await User.findById(foundSession.userId);
+            if (!foundUser) return null;
+
+            return {
+                user: <AdapterUser>(foundUser),
+                session: <AdapterSession>(foundSession),
+            }
+        },
+        async updateSession({ sessionToken, userId, expires }) {
+            const updatedSession = await Session.findOneAndUpdate(
+                { sessionToken },
+                { expires, sessionToken, userId },
+                { new: true },
+            );
+
+            return <AdapterSession>(updatedSession);
+        },
+        async deleteSession(sessionToken) {
+            console.log("🔑 deleteSession");
+            console.log(sessionToken);
+
+            return
+        },
+        //@ts-ignore
+        async createVerificationToken({ identifier, expires, token }) {
+            console.log("🔑 createVerificationToken");
+            console.log(identifier);
+            console.log("");
+            console.log(expires);
+            console.log("");
+            console.log(token);
+
+            return
+        },
+        //@ts-ignore
+        async useVerificationToken({ identifier, token }) {
+            console.log("🔑 useVerificationToken");
+            console.log(identifier);
+            console.log("");
+            console.log(token);
+
+            return
+        },
+    }
 }
+
+export const handle: Handle = SvelteKitAuth({
+    providers: [
+        // @ts-ignore
+        Google({ clientId: google_client_id, clientSecret: google_client_secret })
+    ],
+    secret: auth_secret,
+    // @ts-ignore
+    adapter: DatabaseAdapter({}),
+}) satisfies Handle;

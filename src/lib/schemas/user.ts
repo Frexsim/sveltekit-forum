@@ -1,13 +1,20 @@
-import { Schema, model } from "mongoose";
+import { Schema, Document, model } from "mongoose";
 
-const ObjectId = Schema.ObjectId;
+export interface UserDocument extends Document {
+	name: string,
+	email: string,
+	emailVerified: Date | null,
+	image: string,
+}
 
 const User = new Schema({
-	_id: ObjectId,
-	email: String,
-	name: String,
-	picture: String,
-	password: String
-}, { collection: "sveltekit-forum" });
+	name: { type: String, required: true },
+	email: { type: String, required: true, unique: true },
+	emailVerified: { type: Date },
+	image: { type: String },
+}, {
+	timestamps: true,
+	collection: "sveltekit-forum",
+});
 
-export default model("user", User, "users");
+export default model<UserDocument>("user", User, "users");

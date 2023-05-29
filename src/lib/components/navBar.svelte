@@ -1,9 +1,10 @@
 <script lang="ts">
+	import { signIn, signOut } from "@auth/sveltekit/client"
 	import { page } from "$app/stores";
 </script>
 
 <div class="bar">
-	<img id="logo" src="src/lib/images/logo.svg" alt="COOL FORUM">
+	<img id="logo" src="logo.svg" alt="COOL FORUM">
 	
 	<div class="nav-items left">
 		<a href="/">Posts</a>
@@ -11,12 +12,12 @@
 	</div>
 
 	<div class="nav-items right">
-		{#if !$page.data.user}
-			<a href="/login"><button class="secondary">Login</button></a>
-		{:else}
+		{#if $page.data.session && $page.data.session.user}
 			<div class="user-badge">
-				<img src="{$page.data.user.picture}" alt="user"><span>{$page.data.user.name}</span>
+				<img src="{$page.data.session.user.image}" alt="user">
 			</div>
+		{:else}
+			<button class="secondary" on:click={() => signIn("google")}>Sign In</button>
 		{/if}
 	</div>
 </div>
@@ -25,6 +26,15 @@
 	.nav-items > a {
 		color: white;
 		text-decoration: none;
+	}
+
+	.nav-items > a:hover {
+		text-decoration: underline;
+	}
+
+	.nav-items > a:active {
+		color: lightgray;
+		text-decoration: underline;
 	}
 
 	.nav-items.left > * {
@@ -76,9 +86,8 @@
 		z-index: 10;
 	}
 
-	.user-badge > span {
-		vertical-align: 50%;
-		padding-left: 5px;
+	.user-badge {
+		height: 36px;
 	}
 
 	.user-badge > img {

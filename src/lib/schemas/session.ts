@@ -2,17 +2,15 @@ import { Schema, Document, model } from "mongoose";
 import type { UserDocument } from "./user";
 
 export interface SessionDocument extends Document {
-    user: UserDocument["_id"],
-    valid: boolean,
-    userAgent: string,
-    createdAt: Date,
-    updatedAt: Date,
+    expires: Date,
+    sessionToken: string,
+    userId: UserDocument["_id"],
 }
 
 const Session = new Schema({
-	user: { type: Schema.Types.ObjectId, ref: "User" },
-    valid: { type: Boolean, default: true },
-    userAgent: { type: String },
+    expires: { type: Date },
+    sessionToken: { type: String },
+    userId: { type: Schema.Types.ObjectId },
 }, {
     timestamps: true,
     collection: "sveltekit-forum",

@@ -1,6 +1,0 @@
-{
-	"mongo_url": "mongodb+srv://linlju0601:coolpassword@cluster.458ky17.mongodb.net/?retryWrites=true&w=majority",
-	"google_client_id": "762593410767-l9gi3lu7mu2psdgfod3v7sg8rvrgtc4l.apps.googleusercontent.com",
-	"google_client_secret": "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",
-	"google_oauth_redirect_url": "https://sveltekit-forum.ifrexsim.repl.co/api/oauth/google"
-}

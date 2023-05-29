@@ -1,22 +1,18 @@
 import Post from "$lib/schemas/post.ts"
 
-export const load = async ({ fetch, params, locals }) => {
+export const load = async () => {
 	const posts = await Post.find({}, {
 		_id: 0,
 	});
 
-	let user = null;
-	const userLocal = await locals.user
-	if (userLocal) {
-		user = {
-			email: userLocal.email,
-			name: userLocal.name,
-			picture: userLocal.picture,
-		}
-	}
+	const parsedPosts = posts.map((post) => {
+		let parsedPost = post.toObject();
+		parsedPost.author = parsedPost.author.toString();
+
+		return parsedPost;
+	})
 
 	return {
-		posts: posts.map((post) => post.toObject()).reverse(),
-		user: user,
+		posts: parsedPosts.reverse(),
 	}
 }

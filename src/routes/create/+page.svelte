@@ -1,33 +1,20 @@
 <script>
-	import Selector from "$lib/components/selector.svelte"
-	import SelectorItem from "$lib/components/selectorItem.svelte"
-	
-	export let data;
-	const { tags } = data;
+	import { page } from "$app/stores";
 </script>
 
-<h1>Create Post</h1>
-<form method="post" action="?/post">
-	<label>
-		Title
+{#if $page.data.session && $page.data.session.user}
+	<h1>Create Post</h1>
+	<form method="post" action="?/post">
 		<input type="text" name="title" placeholder="Title" minlength="3" required>
-	</label>
-	<br><br>
-	<label>
-		Content
+		<br><br>
 		<textarea name="content" placeholder="Content" maxlength="10000" rows="6" cols="65" required></textarea>
-	</label>
-	<br><br>
-	<!-- svelte-ignore a11y-label-has-associated-control -->
-	<label>
-		Tags
-		<Selector>
-			<SelectorItem>test</SelectorItem>
-		</Selector>
-	</label>
-	<br><br>
-	<input type="submit" name="submit" value="Create Post">
-</form>
+		<br><br>
+		<input type="submit" name="submit" value="Create Post">
+	</form>
+{:else}
+	<h1>Please sign in!</h1>
+	<p>Sign in to submit a new post!</p>
+{/if}
 
 <style>
 	input[type="text"] {

@@ -1,16 +1,31 @@
-import { Schema, model } from "mongoose";
+import { Schema, Document, model } from "mongoose";
+import type { UserDocument } from "./user";
 
-const ObjectId = Schema.ObjectId;
+export interface PostDocument extends Document {
+    postId: number,
+    author: UserDocument["_id"],
+    title: string,
+	content: string,
+    creationDate: Date,
+	tags: [],
+	replies: [],
+}
 
 const Post = new Schema({
-	_id: ObjectId,
-	postId: Number,
-	author: ObjectId,
-	title: String,
-	content: String,
-	creationDate: Date,
-	tags: [ ObjectId ],
-	replies: [{ author: ObjectId, content: String, creationDate: Date }],
-}, { collection: "sveltekit-forum" });
+	postId: { type: Number, required: true },
+	author: { type: Schema.Types.ObjectId, ref: "User", required: true },
+	title: { type: String, required: true },
+	content: { type: String, required: true },
+	creationDate: { type: Date, required: true },
+	tags: [
+		{ type: Schema.Types.ObjectId }
+	],
+	replies: [
+		{ author: { type: Schema.Types.ObjectId, ref: "User", required: true }, content: { type: String, required: true }, creationDate: { type: Date, required: true } }
+	],
+}, {
+    timestamps: true,
+    collection: "sveltekit-forum",
+});
 
-export default model("post", Post, "posts");
+export default model<PostDocument>("post", Post, "posts");
