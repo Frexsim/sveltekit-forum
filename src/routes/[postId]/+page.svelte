@@ -1,10 +1,11 @@
 <script>
-	// @ts-nocheck
-
 	import MarkdownIt from "markdown-it";
+	//@ts-ignore
 	import MarkdownItVideo from "markdown-it-video";
+	//@ts-ignore
 	import MarkdownItHtml5Embed from "markdown-it-html5-embed";
 	import date from "date-and-time"
+	//@ts-ignore
 	const md = new MarkdownIt({
 	  html: true,
 	  linkify: true,
@@ -21,6 +22,7 @@
 	});
 	
 	import xss from "xss";
+	//@ts-ignore
 	const xssFilter = new xss.FilterXSS({
 		whiteList: {},
 		stripIgnoreTag: false,
@@ -74,6 +76,7 @@
 
 	.user-content {
 		position: relative;
+		height: 20px;
 	}
 
 	.user-content > img {
@@ -89,7 +92,7 @@
 	}
 
 	.post-content {
-		margin-top: -42px;
+		margin-top: -8px;
 		margin-left: 60px;
 	}
 
@@ -114,5 +117,18 @@
 
 	.right > span {
 		font-size: 16px;
+	}
+
+	img video {
+		max-height: 720px;
+		max-width: 100%;
+	}
+
+	iframe {
+		width: auto !important;
+		aspect-ratio: 1920 / 1080;
+
+		max-height: 720px;
+		max-width: 100%;
 	}
 </style>
