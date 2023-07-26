@@ -15,6 +15,9 @@ const config = {
 		alias: {
 			$lib: "./src/lib",
 			$db: "./src/db",
+		},
+		paths: {
+			base: dev ? "" : process.env.BASE_PATH
 		}
 	}
 };
