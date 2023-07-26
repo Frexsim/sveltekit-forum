@@ -1,6 +1,7 @@
 import start_mongo from "$db/mongo.ts";
+import { MONGO_URL } from "$env/static/private"
 
-start_mongo();
+start_mongo(MONGO_URL);
 
 import { SvelteKitAuth } from "@auth/sveltekit";
 import Google from "@auth/core/providers/google";

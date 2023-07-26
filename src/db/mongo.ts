@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
-import { MONGO_URL } from "$env/static/private";
 
-export default function start_mongo() {
+export default function start_mongo(mongoUrl: string) {
 	console.log("Connecting to mongodb...");
-	mongoose.connect(MONGO_URL, {
+	//@ts-ignore
+	mongoose.connect(mongoUrl, {
 		dbName: "sveltekit-forum"
 	});
 }
