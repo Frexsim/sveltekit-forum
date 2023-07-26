@@ -1,18 +1,17 @@
-import start_mongo from "$db/mongo.ts";
-import { MONGO_URL } from "$env/static/private"
-
-start_mongo(MONGO_URL);
-
 import { SvelteKitAuth } from "@auth/sveltekit";
 import Google from "@auth/core/providers/google";
 import type { Adapter, AdapterAccount, AdapterSession, AdapterUser } from "@auth/core/adapters";
-import { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, AUTH_SECRET } from "$env/static/private";
+import { MONGO_URL, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, AUTH_SECRET } from "$env/static/private";
 import type { Handle } from "@sveltejs/kit";
 
 import mongoose from "mongoose";
 import User from "$lib/schemas/user";
 import Session from "$lib/schemas/session";
 import Account from "$lib/schemas/account";
+
+mongoose.connect(MONGO_URL, {
+	dbName: "sveltekit-forum"
+});
 
 function DatabaseAdapter(config: any): Adapter {
     return {
