@@ -17,7 +17,7 @@ const config = {
 			$db: "./src/db",
 		},
 		paths: {
-			base: dev ? "" : process.env.BASE_PATH
+			base: ""
 		}
 	}
 };
