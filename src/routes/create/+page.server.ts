@@ -4,7 +4,7 @@ import { redirect } from "@sveltejs/kit";
 import User from "$lib/schemas/user.js";
 import { uid } from "uid";
 
-export const load = async ({ locals }) => {
+export const load = async () => {
 	//const tagsCollection = await db.collection("tags");
 	//if (!tagsCollection) return;
 

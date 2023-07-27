@@ -5,6 +5,7 @@ export interface UserDocument extends Document {
 	email: string,
 	emailVerified: Date | null,
 	image: string,
+	role: string,
 }
 
 const User = new Schema({
@@ -12,6 +13,7 @@ const User = new Schema({
 	email: { type: String, required: true, unique: true },
 	emailVerified: { type: Date },
 	image: { type: String },
+	role: { type: String, default: "member" },
 }, {
 	timestamps: true,
 	collection: "sveltekit-forum",
